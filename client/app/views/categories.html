@@ -1,4 +1,16 @@
 <div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    
+    <ol class="breadcrumb">  
+      <li class="active">Categories</li>
+    </ol>
+  
+  </div>
+</div>
+<br>
+
+
+<div class="row">
   <div class="col-md-5 col-md-offset-1">
     <h4> Categories </h4>
   </div>
@@ -16,6 +28,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>Sucategories</th>
+        <th>Products</th>
         <th>Active</th>
         <th></th>
       </thead>
@@ -23,6 +36,7 @@
           <td> <a ng-href="/#/category/{{ category._id }}">{{ category._id }}</a></td>
           <td>{{ category.name }}</td>
           <td>{{ category.subcategories.length }}</td>
+          <td>{{ category.subcategories.products }}</td>
           <td>{{ category.isActive }}</td>
           <td>
             <div class="button-group">

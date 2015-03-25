@@ -98,5 +98,7 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 	  $window.localStorage.removeItem('appToken-sec-100');
 
 	};
+
+
   	return auth;
 });

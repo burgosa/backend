@@ -16,7 +16,7 @@ angular.module('clientApp') .controller('CategoriesCtrl', function ($scope,Categ
 
 angular.module('clientApp').controller('CategoryViewCtrl', function ($scope, $routeParams, Category) {
    
-    $scope.category = Category.one($routeParams.id).get({'populate':'subcategories'}).$object;
+    $scope.category = Category.one($routeParams.id).get({'populate':['subcategories','products']}).$object;
 
 });
 

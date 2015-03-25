@@ -38,7 +38,7 @@ angular.module('clientApp').controller('SubcategoryAddCtrl', function ($scope, S
 
 angular.module('clientApp').controller('SubcategoryViewCtrl', function ($scope, $routeParams, Subcategory) {
    
-    $scope.subcategory = Subcategory.one($routeParams.id).get().$object;
+    $scope.subcategory = Subcategory.one($routeParams.subid).get({'populate':['category','products']}).$object;
 
 });
 
@@ -62,7 +62,7 @@ angular.module('clientApp').controller('SubcategoryDeleteCtrl', function ($scope
 
             $scope.category.save().then(function(){
 
-                $location.path('/categories/' + $routeParams.id);
+                $location.path('/category/' + $routeParams.id);
 
             });
 

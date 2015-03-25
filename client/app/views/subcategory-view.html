@@ -1,29 +1,49 @@
 <div class="row">
-  	<div class="col-md-3 col-md-offset-1">
-	    <h4>Name: {{ subcategory.name }} </h4>
-	    <p>Description: {{ subcategory.description }}</p>
-	    <p>Status: 
+  	<div class="col-md-10 col-md-offset-1">
+	  
+	  	<ol class="breadcrumb">
+		  <li><a ng-href="/#/categories">Categories</a></li>
+		  <li><a ng-href="/#/category/{{ subcategory.category._id }}"> {{ subcategory.category.name }}</a></li>
+		  <li class="active">{{ subcategory.name }}</li>
+		</ol>
+	   	
+	</div>
+</div>
+<br>
+<div class="row">
+  	<div class="col-md-10 col-md-offset-1">
+	  
+	   	<div class="media">
+		  	<div class="media-left">
+		    	<a>
+		      		<img class="media-object" width="150" src="http://placehold.it/400x400">
+		    	</a>
+		  	</div>
+		  	<div class="media-body">
+		    	<h4 class="media-heading">Name: {{ subcategory.name }} </h4>
+		    	<p>Description: {{ subcategory.description }}</p>
+		    	<p>Active: {{subcategory.isActive}}</p>
+		    	<p>  
+	    			<a ng-href="/#/category/{{ subcategory.category._id }}/subcategory/{{ subcategory._id }}/edit" class="btn btn-default btn-xs">Edit</a>
+	        		<a ng-href="/#/category/{{ subcategory.category._id }}/subcategory/{{ subcategory._id }}/delete" class="btn btn-danger btn-xs">Delete</a>
+	    		</p>
+		  	</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
 
-	    	<span ng-if="subcategory.isActive == true">
-	  			<span class="label label-primary">Active</span>
-			</span>
-			<span ng-if="subcategory.isActive == false">
-				<span class="label label-default">Inactive</span>
-			</span>
+  	<div class="col-md-5 col-md-offset-1">
+  		<h4>{{ subcategory.name }}'s Products</h4>
+  	</div>
 
-	    </p>
-	    <hr>
-	    <p>  
-	    	<a ng-href="/#/category/{{ subcategory.category._id }}/subcategory/{{ subcategory._id }}/edit" class="btn btn-default btn-xs">Edit</a>
-	        <a ng-href="/#/category/{{ subcategory.category._id }}/subcategory/{{ subcategory._id }}/delete" class="btn btn-danger btn-xs">Delete</a>
+  	<div class="col-md-5  text-right">
+  		<a class="btn btn-primary btn-sm" href="/#/create/{{subcategory.category._id}}/subcategory/{{subcategory._id}}/product"><span class="glyphicon glyphicon-plus"></span> Create Product</a>
+  	</div>
 
-	    </p>
-
-	  </div>
-	  <div class="col-md-6 text-left">
-	    <a class="btn btn-primary btn-sm" href="/#/create/{{category._id}}/subcategory"><span class="glyphicon glyphicon-plus"></span> Create Product</a>
-	  	<br>
-	  	<h4>{{ subcategory.name }}'s Products</h4>
+  	<div class="col-md-10 col-md-offset-1">
+	  	
 	    <table class="table table-striped">
 	      	<thead>
 	        	<th>Id</th>
@@ -32,11 +52,11 @@
 	        	<th></th>
 	      	</thead>
 	      	<tbody>
-	        	<tr ng-repeat="subcategory in category.subcategories">
+	        	<tr ng-repeat="product in subcategory.products">
 
 	          		<td> <a ng-href="/#/category/{{ category._id }}/subcategory/{{ subcategory._id }}">{{ subcategory._id }}</a></td>
-	          		<td>{{ subcategory.name }}</td>
-	          		<td>{{ subcategory.isActive }}</td>
+	          		<td>{{ product.name }}</td>
+	          		<td>{{ product.isActive }}</td>
 	          		<td>
 	            		<div class="button-group">
 	              			<a ng-href="/#/category/{{ category._id }}/subcategory/{{ subcategory._id }}/edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
@@ -47,5 +67,11 @@
 	        	</tr>
 	      	</tbody>
 	    </table>
+	    <pre>
+
+	    	{{subcategory}}
+
+	    </pre>
+
   	</div>
 </div>

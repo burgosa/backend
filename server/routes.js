@@ -6,5 +6,6 @@ module.exports = {
 	'/register' : require('./controllers/RegisterController'),
 	'/category' : require('./controllers/CategoryController'),
 	'/subcategory' : require('./controllers/SubcategoryController'),
+	'/product' : require('./controllers/ProductController'),
 
 };

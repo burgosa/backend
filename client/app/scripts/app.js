@@ -79,7 +79,7 @@ angular.module('clientApp', [ 'ngRoute', 'restangular'])
       })
       .when('/category/:id/subcategory/:subid', {
         templateUrl: 'views/subcategory-view.html',
-        controller: 'SubcategoryEditCtrl',
+        controller: 'SubcategoryViewCtrl',
         access: { requiredLogin: true }
       })
       .when('/category/:id/subcategory/:subid/delete', {
@@ -87,6 +87,16 @@ angular.module('clientApp', [ 'ngRoute', 'restangular'])
         controller: 'SubcategoryDeleteCtrl',
         access: { requiredLogin: true }
       })
+
+      //Products Routes
+
+      .when('/create/:id/subcategory/:subid/product', {
+        templateUrl: 'views/product-add.html',
+        controller: 'ProductAddCtrl',
+        access: { requiredLogin: true }
+      })
+
+
 
       //Moviews Routes
       .when('/movies', {
@@ -178,6 +188,16 @@ angular.module('clientApp', [ 'ngRoute', 'restangular'])
   })
   .factory('Subcategory', function(SubcategoryRestanglar){
     return SubcategoryRestanglar.service('subcategory');
+  })
+  .factory('ProductRestanglar', function(Restangular){
+    return Restangular.withConfig(function(RestangularConfigurer){
+      RestangularConfigurer.setRestangularFields({
+        id : '_id'
+      });
+    });
+  })
+  .factory('Product', function(ProductRestanglar){
+    return ProductRestanglar.service('product');
   });
 
   
