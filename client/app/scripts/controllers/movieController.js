@@ -55,6 +55,7 @@ angular.module('clientApp').controller('MovieDeleteCtrl', function ($scope, $rou
 });
 
 angular.module('clientApp').controller('MovieAddCtrl', function ($scope,Movie, $location) {
+    
     $scope.movie = {};
     
     $scope.saveMovie = function(){
@@ -67,5 +68,5 @@ angular.module('clientApp').controller('MovieAddCtrl', function ($scope,Movie, $
     };
 
 
-  });
+});
 

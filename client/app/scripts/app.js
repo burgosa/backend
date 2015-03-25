@@ -8,11 +8,8 @@
  *
  * Main module of the application.
  */
-angular
-  .module('clientApp', [
-    'ngRoute',
-    'restangular'
-  ])
+angular.module('clientApp', [ 'ngRoute', 'restangular'])
+
   .config(function ($routeProvider,RestangularProvider) {
 
     RestangularProvider.setBaseUrl('http://localhost:3001');
@@ -20,42 +17,111 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        access: { requiredLogin: true }
       })
       .when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+        controller: 'AboutCtrl',
+        access: { requiredLogin: true }
       })
+
+      //User Routes
+      .when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UsersCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/user/:id/delete', {
+        templateUrl: 'views/user-delete.html',
+        controller: 'UserDeleteCtrl',
+        access: { requiredLogin: true }
+      })
+
+      //Categories Routes
+      .when('/categories', {
+        templateUrl: 'views/categories.html',
+        controller: 'CategoriesCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/create/category', {
+        templateUrl: 'views/category-add.html',
+        controller: 'CategoryAddCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/category/:id/delete', {
+        templateUrl: 'views/category-delete.html',
+        controller: 'CategoryDeleteCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/category/:id', {
+        templateUrl: 'views/category-view.html',
+        controller: 'CategoryViewCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/category/:id/edit', {
+        templateUrl: 'views/category-edit.html',
+        controller: 'CategoryEditCtrl',
+        access: { requiredLogin: true }
+      })
+
+      //Subcategories Routes
+
+      .when('/create/:id/subcategory', {
+        templateUrl: 'views/subcategory-add.html',
+        controller: 'SubcategoryAddCtrl',
+        access: { requiredLogin: true }
+      })
+
+      //Moviews Routes
       .when('/movies', {
         templateUrl: 'views/movies.html',
-        controller: 'MoviesCtrl'
+        controller: 'MoviesCtrl',
+        access: { requiredLogin: true }
       })
       .when('/create/movie', {
         templateUrl: 'views/movie-add.html',
-        controller: 'MovieAddCtrl'
+        controller: 'MovieAddCtrl',
+        access: { requiredLogin: true }
       })
       .when('/movie/:id', {
         templateUrl: 'views/movie-view.html',
-        controller: 'MovieViewCtrl'
+        controller: 'MovieViewCtrl',
+        access: { requiredLogin: true }
       })
       .when('/movie/:id/delete', {
         templateUrl: 'views/movie-delete.html',
-        controller: 'MovieDeleteCtrl'
+        controller: 'MovieDeleteCtrl',
+        access: { requiredLogin: true }
       })
       .when('/movie/:id/edit', {
         templateUrl: 'views/movie-edit.html',
-        controller: 'MovieEditCtrl'
+        controller: 'MovieEditCtrl',
+        access: { requiredLogin: true }
       })
+
+      //Auth Routes
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        access: { requiredLogin: false }
       })
       .when('/register', {
         templateUrl: 'views/register.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        access: { requiredLogin: false }
       })
       .otherwise({
         redirectTo: '/'
+      });
+  })
+  .run(function($rootScope, $location, auth) {
+      $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+          if (nextRoute.access.requiredLogin && !auth.isLoggedIn()) {
+              
+            $location.path('/login');
+
+          }
       });
   })
   .factory('MovieRestanglar', function(Restangular){
@@ -67,4 +133,36 @@ angular
   })
   .factory('Movie', function(MovieRestanglar){
     return MovieRestanglar.service('movie');
+  })
+  .factory('UserRestanglar', function(Restangular){
+    return Restangular.withConfig(function(RestangularConfigurer){
+      RestangularConfigurer.setRestangularFields({
+        id : '_id'
+      });
+    });
+  })
+  .factory('User', function(UserRestanglar){
+    return UserRestanglar.service('user');
+  })
+  .factory('CategoryRestanglar', function(Restangular){
+    return Restangular.withConfig(function(RestangularConfigurer){
+      RestangularConfigurer.setRestangularFields({
+        id : '_id'
+      });
+    });
+  })
+  .factory('Category', function(CategoryRestanglar){
+    return CategoryRestanglar.service('category');
+  })
+  .factory('SubcategoryRestanglar', function(Restangular){
+    return Restangular.withConfig(function(RestangularConfigurer){
+      RestangularConfigurer.setRestangularFields({
+        id : '_id'
+      });
+    });
+  })
+  .factory('Subcategory', function(SubcategoryRestanglar){
+    return SubcategoryRestanglar.service('subcategory');
   });
+
+  

@@ -17,14 +17,18 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 	};
 
 	auth.isLoggedIn = function(){
+
 	  var token = auth.getToken();
 
 	  if(token){
 	    var payload = JSON.parse($window.atob(token.split('.')[1]));
 
 	    return payload.exp > Date.now() / 1000;
+
 	  } else {
+	    
 	    return false;
+	  
 	  }
 	};
 
@@ -35,14 +39,38 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 	    var payload = JSON.parse($window.atob(token.split('.')[1]));
 
 	    return payload.username;
+
+	  }
+	};
+
+	auth.currentId = function(){
+
+	  if(auth.isLoggedIn()){
+	    var token = auth.getToken();
+	    var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+	    return payload._id;
+	    
 	  }
 	};
 
 
 	auth.register = function(user){
-	  return $http.post('/register', user).success(function(data){
-	    auth.saveToken(data.token);
-	  });
+	  	return $http({
+
+		    url: 'http://localhost:3001/register',
+		    dataType: 'json',
+		    method: 'POST',
+		    data: 'username='+user.username+'&password='+user.password+'&firstName='+user.firstName+'&lastName='+user.lastName,
+		    headers: {
+		        'Content-Type': 'application/x-www-form-urlencoded'
+		    }
+
+		}).success(function(data){
+
+	    	auth.saveToken(data.token);
+
+	  	});
 	};
 
 
@@ -60,9 +88,9 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 
 		}).success(function(data){
 
-	   	auth.saveToken(data.token);
+	   		auth.saveToken(data.token);
 
-	  });
+	  	});
 	};
 
 	auth.logOut = function(){

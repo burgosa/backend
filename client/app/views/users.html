@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h4> Users </h4>
+    <hr>
+
+    <table class="table table-striped">
+      <thead>
+        <th>id</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in users">
+
+          <td>{{ user._id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+           <td>
+            <div class="button-group">
+              <a ng-href="/#/user/{{ user._id }}/delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

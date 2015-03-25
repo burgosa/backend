@@ -1,0 +1,51 @@
+
+
+<div class="row">
+  <div class="col-md-3 col-md-offset-1">
+    <h4>Name: {{ category.name }} </h4>
+    <p>Description: {{ category.description }}</p>
+    <p>Status: 
+
+    	<span ng-if="category.isActive == true">
+  			<span class="label label-primary">Active</span>
+		</span>
+		<span ng-if="category.isActive == false">
+			<span class="label label-default">Inactive</span>
+		</span>
+
+    </p>
+    <hr>
+    <p>  
+    	<a ng-href="/#/category/{{ category._id }}/edit" class="btn btn-default btn-xs">Edit</a>
+        <a ng-href="/#/category/{{ category._id }}/delete" class="btn btn-danger btn-xs">Delete</a>
+
+    </p>
+
+  </div>
+  <div class="col-md-6 text-left">
+    <a class="btn btn-primary btn-sm" href="/#/create/{{category._id}}/subcategory"><span class="glyphicon glyphicon-plus"></span> Create Subcategory</a>
+  	<br>
+  	<h4>{{ category.name }}'s Subcategories</h4>
+    <table class="table table-striped">
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Active</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="subcategory in category.subcategories">
+          <td> <a ng-href="/#/category/{{ category._id }}/sucategory/{{ sucategory._id }}">{{ subcategory._id }}</a></td>
+          <td>{{ subcategory.name }}</td>
+          <td>{{ subcategory.isActive }}</td>
+          <td>
+            <div class="button-group">
+              <a ng-href="/#/category/{{ category._id }}/edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
+              <a ng-href="/#/category/{{ category._id }}/delete" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove-circle"></span></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
