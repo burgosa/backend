@@ -72,6 +72,21 @@ angular.module('clientApp', [ 'ngRoute', 'restangular'])
         controller: 'SubcategoryAddCtrl',
         access: { requiredLogin: true }
       })
+      .when('/category/:id/subcategory/:subid/edit', {
+        templateUrl: 'views/subcategory-edit.html',
+        controller: 'SubcategoryEditCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/category/:id/subcategory/:subid', {
+        templateUrl: 'views/subcategory-view.html',
+        controller: 'SubcategoryEditCtrl',
+        access: { requiredLogin: true }
+      })
+      .when('/category/:id/subcategory/:subid/delete', {
+        templateUrl: 'views/subcategory-delete.html',
+        controller: 'SubcategoryDeleteCtrl',
+        access: { requiredLogin: true }
+      })
 
       //Moviews Routes
       .when('/movies', {

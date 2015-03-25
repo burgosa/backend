@@ -13,10 +13,8 @@ angular.module('clientApp') .controller('SubcategoriesCtrl', function ($scope,Ca
 
 });
 
-
 angular.module('clientApp').controller('SubcategoryAddCtrl', function ($scope, Subcategory,Category, $routeParams, $location) {
     
-
     $scope.category = Category.one($routeParams.id).get().$object;
     $scope.subcategory = {};
     $scope.subcategory.category = {};
@@ -26,17 +24,74 @@ angular.module('clientApp').controller('SubcategoryAddCtrl', function ($scope, S
 
     	Subcategory.post($scope.subcategory).then(function(res){
 
-            Subcategory.pupulate('category');
-
             $scope.category.subcategories.push(res._id);
 
             $scope.category.save().then(function(){
-                $location.path('/category/' + $routeParams.id);
+                $location.path('/category/' + $routeParams.id); 
             });
                 
     	});  
 
     };
 
+});
+
+angular.module('clientApp').controller('SubcategoryViewCtrl', function ($scope, $routeParams, Subcategory) {
+   
+    $scope.subcategory = Subcategory.one($routeParams.id).get().$object;
+
+});
+
+angular.module('clientApp').controller('SubcategoryDeleteCtrl', function ($scope, $routeParams, Subcategory, Category, $location) {
+        
+    $scope.subcategory = Subcategory.one($routeParams.subid).get().$object;
+    $scope.category = Category.one($routeParams.id).get().$object;
+
+    $scope.deleteSubcategory = function(){
+        
+        for (var i = 0; i < $scope.category.subcategories.length; i++) {
+
+            if ($scope.category.subcategories[i] === $routeParams.subid) {
+
+                $scope.category.subcategories.splice(i, 1);
+
+            }
+        }
+        
+        $scope.subcategory.remove().then(function(){
+
+            $scope.category.save().then(function(){
+
+                $location.path('/categories/' + $routeParams.id);
+
+            });
+
+        });
+
+    };
+
+    $scope.back = function(){
+
+        $location.path('/category/' + $routeParams.id);
+    };
+
+});
+
+angular.module('clientApp').controller('SubcategoryEditCtrl', function ($scope, $routeParams,Subcategory, $location) {
+
+    $scope.subcategory = {};
+
+    Subcategory.one($routeParams.subid).get().then(function(Subcategory){
+
+        $scope.subcategory = Subcategory;
+
+        $scope.saveSubcategory = function() {
+            $scope.subcategory.save().then(function(){
+
+                $location.path('/category/' + $routeParams.id);
+
+            });
+        };
+    });
 });
 

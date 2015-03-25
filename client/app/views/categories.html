@@ -16,19 +16,14 @@
         <th>Id</th>
         <th>Name</th>
         <th>Sucategories</th>
-        <th>Status</th>
+        <th>Active</th>
         <th></th>
       </thead>
       <tbody><tr ng-repeat="category in categories">
           <td> <a ng-href="/#/category/{{ category._id }}">{{ category._id }}</a></td>
           <td>{{ category.name }}</td>
           <td>{{ category.subcategories.length }}</td>
-          <td><span ng-if="category.isActive == true">
-        <span class="label label-primary">Active</span>
-    </span>
-    <span ng-if="category.isActive == false">
-      <span class="label label-default">Inactive</span>
-    </span></td>
+          <td>{{ category.isActive }}</td>
           <td>
             <div class="button-group">
               <a ng-href="/#/category/{{ category._id }}/edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
