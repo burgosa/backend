@@ -1,5 +1,6 @@
 'use strict';
 
+
 /**
  * @ngdoc overview
  * @name clientApp
@@ -8,11 +9,11 @@
  *
  * Main module of the application.
  */
-angular.module('clientApp', [ 'ngRoute', 'restangular'])
+angular.module('clientApp', [ 'config', 'ngRoute', 'restangular'])
 
-  .config(function ($routeProvider,RestangularProvider) {
+  .config(function ($routeProvider,RestangularProvider, ENV) {
 
-    RestangularProvider.setBaseUrl('http://localhost:3001');
+    RestangularProvider.setBaseUrl(ENV.apiEndPoint);
 
     $routeProvider
       .when('/', {
