@@ -11,9 +11,9 @@
  */
 angular.module('clientApp', [ 'config', 'ngRoute', 'restangular'])
 
-  .config(function ($routeProvider,RestangularProvider, ENV) {
+.config(function ($routeProvider,RestangularProvider, ENV) {
 
-    RestangularProvider.setBaseUrl(ENV.apiEndPoint);
+    RestangularProvider.setBaseUrl(ENV.apiEndpoint);
 
     $routeProvider
       .when('/', {
