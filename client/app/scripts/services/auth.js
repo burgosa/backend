@@ -35,7 +35,7 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 	auth.currentUser = function(){
 
 	  if(auth.isLoggedIn()){
-	  	
+
 	    var token = auth.getToken();
 	    var payload = JSON.parse($window.atob(token.split('.')[1]));
 
@@ -59,7 +59,7 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 	auth.register = function(user){
 	  	return $http({
 
-		    url: 'http://localhost:3000/register',
+		    url: 'http://0.0.0.0:3000/register',
 		    dataType: 'json',
 		    method: 'POST',
 		    data: 'username='+user.username+'&password='+user.password+'&firstName='+user.firstName+'&lastName='+user.lastName,
@@ -79,7 +79,7 @@ angular.module('clientApp').factory('auth',function ($http,$window) {
 
 	  	return $http({
 
-		    url: 'http://localhost:3000/login',
+		    url: 'http://0.0.0.0:3000/login',
 		    dataType: 'json',
 		    method: 'POST',
 		    data: 'username='+user.username+'&password='+user.password,
