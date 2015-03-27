@@ -13,6 +13,12 @@ module.exports = function(app, route) {
     
     }
 
+    if(req.body.username === 'undefined' || req.body.password === 'undefined'){
+
+      return res.status(400).json({message: 'Please fill out all fields'});
+
+    }
+
     passport.authenticate('local', function(err, user, info){
 
       if(err){ return next(err); }

@@ -11,6 +11,10 @@ angular.module('clientApp').controller('NavCtrl', function($scope, $location, au
 
   	$scope.isLoggedIn = auth.isLoggedIn;
   	$scope.currentUser = auth.currentUser;
+  	$scope.currentId = auth.currentId;
+
+
+
   	$scope.logOut = function(){
 
   		auth.logOut();

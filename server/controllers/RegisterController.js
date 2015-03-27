@@ -13,6 +13,14 @@ module.exports = function(app, route) {
     
     }
 
+
+     if(req.body.username === 'undefined' || req.body.password === 'undefined'
+      || req.body.firstName === 'undefined' || req.body.lastName === 'undefined' ){
+
+      return res.status(400).json({message: 'Please fill out all fields'});
+
+    }
+
     var user = new User();
 
     user.username = req.body.username;

@@ -41,6 +41,6 @@ mongoose.connection.once('open', function() {
 
   app.use(passport.initialize());
 
-  console.log('Listening on port 3001...');
-  app.listen(3001);
+  console.log('Listening on port 3000...');
+  app.listen(3000);
 });
